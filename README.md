@@ -64,5 +64,3 @@ helm repo update
 helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml -n o11y
 kubectl apply -f istio-ingress.yaml
 ```
-
-Installed components:
