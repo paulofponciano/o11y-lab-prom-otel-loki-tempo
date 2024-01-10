@@ -13,6 +13,7 @@ kubectl create namespace o11y
 Execute:
 
 ```sh
+cd promtail
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install promtail grafana/promtail  --values promtail.yaml -n o11y
@@ -60,7 +61,7 @@ Execute:
 cd prometheus-grafana
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack -n o11y
+helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml -n o11y
 kubectl apply -f istio-ingress.yaml
 ```
 
