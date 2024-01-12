@@ -42,7 +42,7 @@ Execute:
 
 ```sh
 cd tempo
-helm install tempo grafana/tempo-distributed --values minio.yaml -n o11y
+helm upgrade --install tempo grafana/tempo-distributed --values tempo.yaml -n o11y
 ```
 
 Installed components:

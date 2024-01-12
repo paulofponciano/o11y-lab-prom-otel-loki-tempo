@@ -1,0 +1,279 @@
+##################################################################################################
+# Namespace
+##################################################################################################
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sample-api
+  labels:
+    istio-injection: enabled
+---
+##################################################################################################
+# App-A
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-a
+  namespace: sample-api
+  labels:
+    app: app-a
+    service: app-a
+spec:
+  ports:
+  - port: 8000
+    name: http
+  selector:
+    app: app-a
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-a
+  namespace: sample-api
+  labels:
+    app: app-a
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-a
+      version: v1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8000"
+      labels:
+        app: app-a
+        version: v1
+    spec:
+      containers:
+      - name: app-a
+        image: paulofponciano/o11y-lab-prom-otel-loki-tempo:sample-api
+        imagePullPolicy: 'Always'
+        ports:
+        - containerPort: 8000
+        env:
+        - name: APP_NAME
+          value: "app-a"
+        - name: OTLP_GRPC_ENDPOINT
+          value: "http://tempo-distributor.o11y.svc.cluster.local:4317"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: app-a-gateway
+  namespace: sample-api
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 443
+      name: http
+      protocol: HTTP
+    hosts:
+    - "app-a.pauloponciano.digital"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: app-a
+  namespace: sample-api
+spec:
+  hosts:
+  - "app-a.pauloponciano.digital"
+  gateways:
+  - app-a-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: app-a.sample-api.svc.cluster.local
+        port:
+          number: 8000
+---
+##################################################################################################
+# App-B
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-b
+  namespace: sample-api
+  labels:
+    app: app-b
+    service: app-b
+spec:
+  ports:
+  - port: 8000
+    name: http
+  selector:
+    app: app-b
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-b
+  namespace: sample-api
+  labels:
+    app: app-b
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-b
+      version: v1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8000"
+      labels:
+        app: app-b
+        version: v1
+    spec:
+      containers:
+      - name: app-b
+        image: paulofponciano/o11y-lab-prom-otel-loki-tempo:sample-api
+        imagePullPolicy: 'Always'
+        ports:
+        - containerPort: 8000
+        env:
+        - name: APP_NAME
+          value: "app-b"
+        - name: OTLP_GRPC_ENDPOINT
+          value: "http://tempo-distributor.o11y.svc.cluster.local:4317"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: app-b-gateway
+  namespace: sample-api
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 443
+      name: http
+      protocol: HTTP
+    hosts:
+    - "app-b.pauloponciano.digital"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: app-b
+  namespace: sample-api
+spec:
+  hosts:
+  - "app-b.pauloponciano.digital"
+  gateways:
+  - app-b-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: app-b.sample-api.svc.cluster.local
+        port:
+          number: 8000
+---
+##################################################################################################
+# App-C
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-c
+  namespace: sample-api
+  labels:
+    app: app-c
+    service: app-c
+spec:
+  ports:
+  - port: 8000
+    name: http
+  selector:
+    app: app-c
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-c
+  namespace: sample-api
+  labels:
+    app: app-c
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-c
+      version: v1
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: "/metrics"
+        prometheus.io/port: "8000"
+      labels:
+        app: app-c
+        version: v1
+    spec:
+      containers:
+      - name: app-c
+        image: paulofponciano/o11y-lab-prom-otel-loki-tempo:sample-api
+        imagePullPolicy: 'Always'
+        ports:
+        - containerPort: 8000
+        env:
+        - name: APP_NAME
+          value: "app-c"
+        - name: OTLP_GRPC_ENDPOINT
+          value: "http://tempo-distributor.o11y.svc.cluster.local:4317"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: app-c-gateway
+  namespace: sample-api
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+  - port:
+      number: 443
+      name: http
+      protocol: HTTP
+    hosts:
+    - "app-c.pauloponciano.digital"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: app-c
+  namespace: sample-api
+spec:
+  hosts:
+  - "app-c.pauloponciano.digital"
+  gateways:
+  - app-c-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /
+    route:
+    - destination:
+        host: app-c.sample-api.svc.cluster.local
+        port:
+          number: 8000
