@@ -16,7 +16,7 @@ Execute:
 cd promtail
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
-helm upgrade --install promtail grafana/promtail  --values promtail.yaml -n o11y
+helm upgrade --install promtail grafana/promtail  --values values.yaml -n o11y
 ```
 
 Installed components:
@@ -26,7 +26,8 @@ Installed components:
 Execute:
 
 ```sh
-helm upgrade --install loki grafana/loki-distributed -n o11y
+cd loki
+helm upgrade --install loki grafana/loki-distributed --values values.yaml -n o11y
 ```
 
 Installed components:
@@ -42,7 +43,7 @@ Execute:
 
 ```sh
 cd tempo
-helm upgrade --install tempo grafana/tempo-distributed --values tempo.yaml -n o11y
+helm upgrade --install tempo grafana/tempo-distributed --values values.yaml -n o11y
 ```
 
 Installed components:
