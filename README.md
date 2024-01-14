@@ -62,5 +62,6 @@ cd prometheus-grafana
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
 helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml -n o11y
-kubectl apply -f istio-ingress.yaml
+kubectl apply -f istio-ingress-prometheus.yaml
+kubectl apply -f istio-ingress-grafana.yaml
 ```
