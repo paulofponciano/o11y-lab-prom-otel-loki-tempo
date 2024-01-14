@@ -26,7 +26,7 @@ Installed components:
 Execute:
 
 ```sh
-helm install loki grafana/loki-distributed -n o11y
+helm upgrade --install loki grafana/loki-distributed -n o11y
 ```
 
 Installed components:
@@ -61,6 +61,6 @@ Execute:
 cd prometheus-grafana
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm repo update
-helm install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml -n o11y
+helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheus-stack --values values.yaml -n o11y
 kubectl apply -f istio-ingress.yaml
 ```
