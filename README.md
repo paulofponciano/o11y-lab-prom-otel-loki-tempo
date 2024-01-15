@@ -53,8 +53,7 @@ Installed components:
 * query-frontend
 * compactor
 * memcached
-
-* An additional disk (EBS) will be attached to the minio's Volume Claim.
+* An additional disk (EBS) will be attached to the minio's Volume Claim
 
 ## Kube Prometheus Stack
 
@@ -69,4 +68,4 @@ kubectl apply -f istio-ingress-prometheus.yaml
 kubectl apply -f istio-ingress-grafana.yaml
 ```
 
-* In the 'additionalScrapeConfigs' section of the values.yaml file, additional scrapes were added. The datasources are also added to the grafana in the 'additionalDataSources' section.
+* In the 'additionalScrapeConfigs' section of the values.yaml file, additional scrapes were added. The datasources are also added to the grafana in the 'additionalDataSources' section
