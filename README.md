@@ -1,4 +1,4 @@
-📊 # o11y Lab: OpenTelemetry, Prometheus, Loki, Tempo and Grafana
+# o11y Lab: OpenTelemetry, Prometheus, Loki, Tempo and Grafana 📊
 
 ## Namespace
 
