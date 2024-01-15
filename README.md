@@ -1,4 +1,4 @@
-# o11y Lab: OpenTelemetry, Prometheus, Loki, Tempo and Grafana
+# o11y Lab: OpenTelemetry, Prometheus, Loki, Tempo and Grafana 📊
 
 ## Namespace
 
@@ -68,5 +68,8 @@ helm upgrade --install kube-prometheus-stack prometheus-community/kube-prometheu
 kubectl apply -f istio-ingress-prometheus.yaml
 kubectl apply -f istio-ingress-grafana.yaml
 ```
+<<<<<<< HEAD
 
 ** In the 'additionalScrapeConfigs' section of the values.yaml file, additional scrapes were added. The datasources are also added to the grafana in the 'additionalDataSources' section.
+=======
+>>>>>>> refs/remotes/origin/main
