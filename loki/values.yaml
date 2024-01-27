@@ -211,7 +211,7 @@ loki:
       tail_proxy_url: http://{{ include "loki.querierFullname" . }}:3100
 
     compactor:
-      shared_store: filesystem
+      shared_store: s3
 
     ruler:
       storage:
@@ -230,7 +230,7 @@ loki:
     configs:
     - from: "2020-09-07"
       store: boltdb-shipper
-      object_store: filesystem
+      object_store: s3
       schema: v11
       index:
         prefix: loki_index_
@@ -239,12 +239,17 @@ loki:
   # -- Check https://grafana.com/docs/loki/latest/configuration/#storage_config for more info on how to configure storages
   storageConfig:
     boltdb_shipper:
-      shared_store: filesystem
+      #shared_store: filesystem
+      shared_store: s3
       active_index_directory: /var/loki/index
       cache_location: /var/loki/cache
-      cache_ttl: 168h
-    filesystem:
-      directory: /var/loki/chunks
+      cache_ttl: 24h
+    # filesystem:
+    #   directory: /var/loki/chunks
+    aws:
+      region: us-east-2
+      bucketnames: loki-s3-paulop
+      s3forcepathstyle: false
 # -- Uncomment to configure each storage individually
 #   azure: {}
 #   gcs: {}
@@ -260,15 +265,17 @@ runtimeConfig: {}
 serviceAccount:
   # -- Specifies whether a ServiceAccount should be created
   create: true
+  name: loki-sa
   # -- The name of the ServiceAccount to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: null
+  # name: null
   # -- Image pull secrets for the service account
   imagePullSecrets: []
   # -- Labels for the service account
   labels: {}
   # -- Annotations for the service account
-  annotations: {}
+  annotations:
+    eks.amazonaws.com/role-arn: "arn:aws:iam::<ACCOUNT>:role/CustomRoleTempoandLokionK8s"
   # -- Set this toggle to false to opt out of automounting API credentials for the service account
   automountServiceAccountToken: true
 
