@@ -119,12 +119,12 @@ AWS IAM (Loki and Tempo):
         {
             "Effect": "Allow",
             "Principal": {
-                "Federated": "arn:aws:iam::<ACCOUNT>:oidc-provider/oidc.eks.us-east-2.amazonaws.com/id/<ID>"
+                "Federated": "arn:aws:iam::<ACCOUNT>:oidc-provider/oidc.eks.<REGION>.amazonaws.com/id/<ID>"
             },
             "Action": "sts:AssumeRoleWithWebIdentity",
             "Condition": {
                 "StringEquals": {
-                    "oidc.eks.us-east-2.amazonaws.com/id/<ID>:sub": [
+                    "oidc.eks.<REGION>.amazonaws.com/id/<ID>:sub": [
                         "system:serviceaccount:o11y:loki-sa",
                         "system:serviceaccount:o11y:tempo-sa"
                     ]
