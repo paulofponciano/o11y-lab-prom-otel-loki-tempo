@@ -917,7 +917,7 @@
         ]
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 6,
         "x": 0,
         "y": 28
@@ -943,13 +943,50 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "sum by(type) (rate({app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | type != \"\" |= \"$log_keyword\" [1m]))",
+          "expr": "sum by(type) (rate({app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | type = `INFO` |= `$log_keyword` [1m]))",
           "legendFormat": "{{type}}",
           "queryType": "range",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "sum by(type) (rate({app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | type = `ERROR` |= `$log_keyword` [1m]))",
+          "hide": false,
+          "legendFormat": "{{type}}",
+          "queryType": "range",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "sum by(type) (rate({app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | type = `CRITICAL` |= `$log_keyword` [1m]))",
+          "hide": false,
+          "legendFormat": "{{type}}",
+          "queryType": "range",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "loki"
+          },
+          "editorMode": "code",
+          "expr": "sum by(type) (rate({app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | type = `WARNING` |= `$log_keyword` [1m]))",
+          "hide": false,
+          "legendFormat": "{{type}}",
+          "queryType": "range",
+          "refId": "D"
         }
       ],
       "title": "Log Type Rate",
+      "transformations": [],
       "type": "timeseries"
     },
     {
@@ -958,7 +995,7 @@
         "uid": "loki"
       },
       "gridPos": {
-        "h": 9,
+        "h": 12,
         "w": 18,
         "x": 6,
         "y": 28
@@ -982,7 +1019,7 @@
             "uid": "loki"
           },
           "editorMode": "code",
-          "expr": "{app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | line_format \"{{.compose_service}}\\t{{.type}}\\t trace_id={{.trace_id}}\\t {{.msg}}\" |= \"$log_keyword\"",
+          "expr": "{app=~\"app-.*\"} | pattern `<date> <time> <type> <logger> <code> [<_>=<trace_id> <_>=<span_id> <_>=<service_name>] - <msg>` | line_format \"{{.app}}\\t{{.type}}\\t trace_id={{.trace_id}}\\t {{.msg}}\" |= \"$log_keyword\"",
           "hide": false,
           "queryType": "range",
           "refId": "A"
@@ -999,7 +1036,7 @@
     "list": [
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "app-a",
           "value": "app-a"
         },
@@ -1026,7 +1063,7 @@
       },
       {
         "current": {
-          "selected": false,
+          "selected": true,
           "text": "",
           "value": ""
         },
@@ -1048,13 +1085,13 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "FastAPI Observability",
   "uid": "fastapi-observability",
-  "version": 2,
+  "version": 5,
   "weekStart": ""
 }
