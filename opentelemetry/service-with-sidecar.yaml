@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-with-sidecar
+  namespace: sample-api
+  labels:
+    app: service-with-sidecar
+spec:
+  selector:
+    matchLabels:
+      app: service-with-sidecar
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: service-with-sidecar
+      annotations:
+        sidecar.opentelemetry.io/inject: "true"
+    spec:
+      containers:
+      - name: my-api
+        image: jaegertracing/vertx-create-span:operator-e2e-tests
+        ports:
+          - containerPort: 8080
+            protocol: TCP

@@ -1,0 +1,8 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: my-instrumentation
+  namespace: o11y
+spec:
+  exporter:
+    endpoint: http://otelcol-collector.o11y.svc.cluster.local:4317

@@ -1,0 +1,33 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otelcol-sidecar
+  namespace: sample-api
+spec:
+  mode: sidecar
+  config: |
+    
+    receivers:
+      jaeger:
+        protocols:
+          grpc:
+          thrift_binary:
+          thrift_compact:
+      otlp:
+        protocols:
+          grpc:
+          http:
+
+    exporters:
+      logging:
+      otlp:
+        endpoint: otelcol-collector.o11y.svc.cluster.local:4317
+        tls:
+          insecure: true
+
+    service:
+      pipelines:
+        traces:
+          receivers: [jaeger, otlp]
+          processors: []
+          exporters: [logging, otlp]
