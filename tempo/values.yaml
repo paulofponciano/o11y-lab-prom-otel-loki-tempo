@@ -94,7 +94,7 @@ serviceAccount:
   imagePullSecrets: []
   # -- Annotations for the service account
   annotations: 
-    "eks.amazonaws.com/role-arn": "arn:aws:iam::<ACCOUNT>:role/CustomRoleTempoandLokionK8s"
+    "eks.amazonaws.com/role-arn": "arn:aws:iam::310240692520:role/CustomRoleTempoandLokionK8s"
   automountServiceAccountToken: false
 
 rbac:
