@@ -186,3 +186,16 @@ kubectl apply -f istio-ingress-grafana.yaml
 ```
 
 * In the 'additionalScrapeConfigs' section of the values.yaml file, additional scrapes were added. The datasources are also added to the grafana in the 'additionalDataSources' section
+
+## Kubernetes Event Exporter
+
+```sh
+cd kubernetes-event-exporter
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm upgrade --install event-exporter bitnami/kubernetes-event-exporter --values values.yaml -n o11y
+```
+
+> [!NOTE]
+> [Grafana Dashboard - Kubernetes Event Exporter](./kubernetes-event-exporter/kubernetes-event-exporter-dashboard.json).
+
+---
