@@ -196,6 +196,6 @@ helm upgrade --install event-exporter bitnami/kubernetes-event-exporter --values
 ```
 
 > [!NOTE]
-> [Grafana Dashboard - Kubernetes Event Exporter](./kubernetes-event-exporter/kubernetes-event-exporter-dashboard.json).
+> [Grafana Dashboard - Kubernetes Event Exporter](./kubernetes-event-exporter/kubernetes-event-exporter-dashboard.json)
 
 ---
