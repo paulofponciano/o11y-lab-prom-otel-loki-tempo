@@ -248,7 +248,7 @@ loki:
     #   directory: /var/loki/chunks
     aws:
       region: us-east-2
-      bucketnames: loki-s3-paulop
+      bucketnames: bucket-name
       s3forcepathstyle: false
 # -- Uncomment to configure each storage individually
 #   azure: {}
@@ -275,7 +275,7 @@ serviceAccount:
   labels: {}
   # -- Annotations for the service account
   annotations:
-    eks.amazonaws.com/role-arn: "arn:aws:iam::310240692520:role/CustomRoleTempoandLokionK8s"
+    eks.amazonaws.com/role-arn: "arn:aws:iam::ACCOUNT-ID:role/CustomRoleTempoandLokionK8s"
   # -- Set this toggle to false to opt out of automounting API credentials for the service account
   automountServiceAccountToken: true
 
