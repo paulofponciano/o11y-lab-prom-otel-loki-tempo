@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: operator-e2e-tests
+  namespace: sample-api-java
+  labels:
+    app: operator-e2e-tests
+spec:
+  selector:
+    matchLabels:
+      app: operator-e2e-tests
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: operator-e2e-tests
+      annotations:
+        instrumentation.opentelemetry.io/inject-java: "o11y/java-auto-instrumentation"
+    spec:
+      containers:
+      - name: operator-e2e-tests
+        image: jaegertracing/vertx-create-span:operator-e2e-tests
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: operator-e2e-tests-service
+  namespace: sample-api-java
+  labels:
+    app: operator-e2e-tests
+spec:
+  selector:
+    app: operator-e2e-tests
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080

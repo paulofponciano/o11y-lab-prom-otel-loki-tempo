@@ -1,0 +1,15 @@
+---
+apiVersion: opentelemetry.io/v1alpha1
+kind: Instrumentation
+metadata:
+  name: java-auto-instrumentation
+  namespace: o11y
+spec:
+  exporter:
+    endpoint: http://otelcol-collector.o11y.svc.cluster.local:4317
+  propagators:
+    - tracecontext
+    - baggage
+  sampler:
+    type: parentbased_traceidratio
+    argument: "1"
