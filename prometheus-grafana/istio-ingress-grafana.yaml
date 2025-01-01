@@ -8,21 +8,21 @@ spec:
     istio: ingressgateway
   servers:
     - hosts:
-        - pegasus-grafana.pauloponciano.digital
+        - pegasus-grafana.sevira.cloud
       port:
         name: http
         number: 80
         protocol: HTTP
-      # tls:
-      #   httpsRedirect: true
-    # - hosts:
-    #     - pegasus-grafana.pauloponciano.digital
-    #   port:
-    #     name: https-workloads
-    #     number: 443
-    #     protocol: HTTP
-    #   tls:
-    #     mode: PASSTHROUGH
+      tls:
+        httpsRedirect: true
+    - hosts:
+        - pegasus-grafana.sevira.cloud
+      port:
+        name: https-workloads
+        number: 443
+        protocol: HTTP
+      tls:
+        mode: PASSTHROUGH
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
@@ -33,7 +33,7 @@ spec:
   gateways:
     - grafana-gateway
   hosts:
-    - pegasus-grafana.pauloponciano.digital
+    - pegasus-grafana.sevira.cloud
   http:
     - route:
         - destination:
