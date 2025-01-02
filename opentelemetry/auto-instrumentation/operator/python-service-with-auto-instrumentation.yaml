@@ -70,7 +70,7 @@ spec:
         - name: TITLE
           value: "Microservice 2"
         - name: RESPONSE_TIME
-          value: "500"
+          value: "3500" # bottleneck
         - name: EXTERNAL_CALL_URL
           value: "http://microservice-3.sample-api-python.svc.cluster.local:5000"
         - name: EXTERNAL_CALL_METHOD
