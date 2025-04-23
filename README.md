@@ -15,7 +15,7 @@ kubectl create namespace o11y
 
 > [!WARNING]
 > Promtail está sendo descontinuado com inicio em Feb. 13, 2025.
-> Para coleta de Logs e Eventos, podemos utilizar o [K8s-monitoring com Alloy](#k8s-monitoring--alloy).
+> Para coleta de Logs e Eventos, podemos utilizar o [K8s-monitoring com Alloy](#k8s-monitoring--alloy) no lugar do Promtail.
 
 Execute:
 
