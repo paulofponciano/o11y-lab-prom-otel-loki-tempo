@@ -13,6 +13,10 @@ kubectl create namespace o11y
 
 ## Promtail
 
+> [!WARNING]
+> Promtail está sendo descontinuado com inicio em Feb. 13, 2025.
+> Para coleta de Logs e Eventos, podemos utilizar o [K8s-monitoring com Alloy](#k8s-monitoring--alloy).
+
 Execute:
 
 ```sh
@@ -20,6 +24,17 @@ cd promtail
 helm repo add grafana https://grafana.github.io/helm-charts
 helm repo update
 helm upgrade --install promtail grafana/promtail  --values values.yaml -n o11y
+```
+
+## K8s-monitoring / Alloy
+
+Execute:
+
+```sh
+cd alloy/k8s-monitoring
+helm repo add grafana https://grafana.github.io/helm-charts
+helm repo update
+helm upgrade --install k8s-monitoring grafana/k8s-monitoring --values values.yaml -n o11y
 ```
 
 Installed components:
