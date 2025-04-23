@@ -204,6 +204,10 @@ kubectl apply -f istio-ingress-grafana.yaml
 
 ## Kubernetes Event Exporter
 
+> [!NOTE]
+> Caso tenha implementado o [K8s-monitoring com Alloy](#k8s-monitoring--alloy), não é necessário o Kubernetes Event Exporter.
+> O K8s-monitoring já traz os eventos de API.
+
 ```sh
 cd kubernetes-event-exporter
 helm repo add bitnami https://charts.bitnami.com/bitnami
